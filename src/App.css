@@ -1,3 +1,35 @@
+body {
+  margin: 0;
+  font-family: "Lato", sans-serif;
+  overflow-x: hidden; /* Hide horizontal scrollbar */
+}
+.subMenu {
+  font-size: small;
+  padding: 10px 0px 10px 30px;
+  height: 50px;
+  border: 1px solid #cccccc;
+}
+.subMenu:hover {
+  background-color:#9dc6f4;
+}
+.Menu-item {
+  margin: 0 auto;
+  padding: 10px ;
+  text-align: justify;
+  height: 50px;
+  border: 1px solid #cccccc;
+  cursor: pointer;
+}
+.Menu-item:hover {
+  background-color:#9dc6f4;
+}
+.activeMenu {
+  background-color:#9dc6f4;
+}
+a {
+  color: black !important;
+  text-decoration: none !important;
+}
 .container {
   margin: 0 auto; /* Added */
   float: none; /* Added */
@@ -12,4 +44,55 @@ button {
 .card-footer {
   margin-top: 3
   0px;
+}
+.appTitle {
+  margin: 0 auto;
+  float: none;
+}
+.main {
+  margin: 0 auto;
+  position: absolute; 
+  left: 0px; 
+  right: 0px;
+}
+/******************************/
+.content {
+  /*border: 1px solid blue;*/
+  min-width: 250px;
+  max-width: 100%;
+  margin-left: 250px;
+  overflow-wrap: break-word; 
+  right: 0;
+}
+
+/******************************/
+#sidebar {
+  min-width: 250px;
+  max-width: 250px;
+  position: fixed;
+  height: 100%;
+  border-right: 1px solid #cccccc;
+  /*border: 1px solid red;*/
+}
+.userInfo {
+  height: auto;
+}
+.profile-pic {
+  border-radius: 50%;
+  margin: 10px auto;
+  max-width: 100px;
+}
+
+
+/******************************/
+.dashboard {
+  margin: 0 auto;
+  min-width: 250px;
+  max-width: 94%;
+}
+.border-left-primary {
+  border-left: .25rem solid #9dc6f4 !important;
+}
+.cards-dashboard {
+  height: 175px !important;
 }
