@@ -20,7 +20,7 @@ export default class Navigation extends Component {
 
     render() {
         return (
-            <nav className="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+            <nav className={"navbar navbar-expand-lg navbar-light bg-light fixed-top "+ this.props.hideNav}>
                 <div className="container">
                     <Link className="navbar-brand" to="/">
                         <div className="appTitle">

@@ -3,11 +3,20 @@ body {
   font-family: "Lato", sans-serif;
   overflow-x: hidden; /* Hide horizontal scrollbar */
 }
+/************************/
+.spinnerComp {
+  width: 3rem; height: 3rem;
+  margin-left: 150px;
+}
+
+
+/************************/
 .subMenu {
   font-size: small;
   padding: 10px 0px 10px 30px;
   height: 50px;
   border: 1px solid #cccccc;
+  cursor: pointer;
 }
 .subMenu:hover {
   background-color:#9dc6f4;
@@ -64,6 +73,9 @@ button {
   overflow-wrap: break-word; 
   right: 0;
 }
+.hideComp {
+  display: none;
+}
 
 /******************************/
 #sidebar {
@@ -95,4 +107,14 @@ button {
 }
 .cards-dashboard {
   height: 175px !important;
+}
+.value-card {
+  margin: 25px auto;
+  cursor: pointer;
+}
+/*****************************/
+.content-form-addExpenses {
+  margin: 0 auto;
+  width: 70%;
+  border: 1px solid black;
 }

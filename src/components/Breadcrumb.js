@@ -4,7 +4,7 @@ export default class Breadcrumb extends Component {
     render() {
         return (
             <div>
-                <div className="breadcrumb">
+                <div className={"breadcrumb "+this.props.hideBread}>
                     <span >/ Dashboard</span>
                 </div>
             </div>
