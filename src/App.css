@@ -116,5 +116,11 @@ button {
 .content-form-addExpenses {
   margin: 0 auto;
   width: 70%;
-  border: 1px solid black;
+}
+.react-datepicker-wrapper {
+  width: 100%;
+}
+.card-Expenses {
+  width: 80%;
+  margin: 0 auto;
 }

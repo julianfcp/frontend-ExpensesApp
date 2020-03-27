@@ -6,6 +6,7 @@ import Sidebar from './Sidebar';
 import Breadcrumb from './Breadcrumb';
 import Dashboard from './Dashboard';
 import AddExpenses from './Expenses/AddExpenses';
+import ManageExpenses from './Expenses/ManageExpenses';
 
 export default class Home extends Component {
     constructor(props){
@@ -20,6 +21,7 @@ export default class Home extends Component {
             hideSideb: 'hideComp',
             hideDash: 'hideComp',
             hideAddExpenses: 'hideComp',
+            hideManageExpenses: 'hideComp',
         }
     }
 
@@ -31,7 +33,7 @@ export default class Home extends Component {
                 // get user Data
                 const userData = await axios.get('http://localhost:4000/api/users/'+userSession.data.userID);
                 console.log(userData);
-                this.setState({
+                await this.setState({
                     userID: userData.data._id,
                     userName: userData.data.name,
                     userEmail: userData.data.email,
@@ -41,29 +43,36 @@ export default class Home extends Component {
                     hideSideb: '',
                     hideDash: ''
                 });
+
             } else {
                 // else redirect to login
                 window.location.replace("http://localhost:3000/login");
     
             }
         }, 600);
-        
     }
 
     handleHideComponent = (componentID) => {
-        console.log(componentID);
-
         switch (componentID) {
             case "Addexpenses":
                 this.setState({
                     hideDash: 'hideComp',
-                    hideAddExpenses: ''
+                    hideAddExpenses: '',
+                    hideManageExpenses: 'hideComp',
                 })
                 break;
             case "dashboard":
                 this.setState({
                     hideDash: '',
-                    hideAddExpenses: 'hideComp'
+                    hideAddExpenses: 'hideComp',
+                    hideManageExpenses: 'hideComp',
+                })
+                break;
+            case "ManageExpenses":
+                this.setState({
+                    hideDash: 'hideComp',
+                    hideAddExpenses: 'hideComp',
+                    hideManageExpenses: '',
                 })
                 break;
         
@@ -93,8 +102,8 @@ export default class Home extends Component {
                     <div className="content">
                         <Breadcrumb hideBread={this.state.hideBread}/>
                         <Dashboard hideDash={this.state.hideDash}/>
-                        <AddExpenses hideAddExpenses={this.state.hideAddExpenses}/>
-
+                        <AddExpenses hideAddExpenses={this.state.hideAddExpenses} userID={this.state.userID}/>
+                        <ManageExpenses hideManageExpenses={this.state.hideManageExpenses}/>
 
                         <Spinner hidespinner={this.state.hidespinner}/>
                     </div>

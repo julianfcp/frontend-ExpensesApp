@@ -5,7 +5,8 @@ export default class Sidebar extends Component {
         super(props);
         this.state = {
             activeDash: 'activeMenu',
-            activeExpenses: ''
+            activeAddExpenses: '',
+            activeManageExpenses: ''
         }
     }
 
@@ -18,24 +19,31 @@ export default class Sidebar extends Component {
                 this.props.actionHide(selection);
                 this.setState({
                     activeDash: '',
-                    activeExpenses: 'activeMenu'
+                    activeAddExpenses: 'activeMenu',
+                    activeManageExpenses: ''
                 })
                 break;
             case "dashboard":
                 this.props.actionHide(selection);
                 this.setState({
                     activeDash: 'activeMenu',
-                    activeExpenses: ''
+                    activeAddExpenses: '',
+                    activeManageExpenses: '',
                 })
                 break;
+            case "ManageExpenses":
+            this.props.actionHide(selection);
+            this.setState({
+                activeDash: '',
+                activeAddExpenses: '',
+                activeManageExpenses: 'activeMenu'
+
+            })
+            break;
         
             default:
                 break;
         }
-
-
-
-        console.log(e.target.className)
     }
 
     render() {
@@ -53,8 +61,8 @@ export default class Sidebar extends Component {
                         <li>
                             <div className="Menu-item "><a href="#homeSubmenu" data-toggle="collapse" aria-expanded="false" id="expenses">Expenses</a></div>
                             <ul className="collapse list-unstyled" id="homeSubmenu">
-                                <li><div className={"subMenu "+ this.state.activeExpenses} id="Addexpenses" onClick={this.menuItem}>Add Expense</div></li>
-                                <li><div className="subMenu">Manage Expenses</div></li>
+                                <li><div className={"subMenu "+ this.state.activeAddExpenses} id="Addexpenses" onClick={this.menuItem}>Add Expense</div></li>
+                                <li><div className={"subMenu "+ this.state.activeManageExpenses} id="ManageExpenses" onClick={this.menuItem}>Manage Expenses</div></li>
                             </ul>
                         </li>
                         <li>
