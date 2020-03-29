@@ -11,27 +11,67 @@ export default class AddExpenses extends Component {
             categories: [],
             expenseDate: new Date(),
             expenseCategorySelected: '',
-
+            expenseItem: '',
+            expenseCost: '',
+            categorySelected: '',
+            expenseCreated: 'hideComp',
+            expenseError: 'hideComp'
         }
     }
 
     async componentDidMount () {
         const userSession = await axios.get('http://localhost:4000/api/home');
-
+        this.setState({
+            userID: userSession.data.userID
+        })
         //const userID = {userId: this.props.userID}
         //console.log(userID)
-        const res = await axios.post("http://localhost:4000/api/categories", {userId: userSession.data.userID})
+        const res = await axios.post("http://localhost:4000/api/categories", {userId: userSession.data.userID});
         this.setState({
-            categories: res.data
+            categories: res.data,
+            categorySelected: res.data[0].category
         })
-
     }
-
 
     handleDate = (date) => {
         this.setState({
             expenseDate: date
         })
+    }
+
+    onInputChange = (e) => {
+        this.setState({
+            [e.target.name]: e.target.value
+        })
+    }
+
+    onDateChange = (date) => {
+        this.setState({
+            expenseDate: date
+        })
+    }
+
+    onSubmit = async (e) => {
+        e.preventDefault();
+        const newExpense = {
+            userID: this.state.userID,
+            expenseItem: this.state.expenseItem,
+            expenseCost: this.state.expenseCost,
+            date: this.state.expenseDate,
+            expenseCategory: this.state.categorySelected
+        }
+        const res = await axios.post('http://localhost:4000/api/expenses', newExpense);
+        if(res.data.success){
+            document.getElementById("create-expense-form").reset();
+            this.setState({ 
+                expenseDate: new Date(),
+                expenseCreated: ''
+            });
+        } else {
+            this.setState({ 
+                expenseError: ''
+            });
+        }
     }
 
     render() {
@@ -45,10 +85,19 @@ export default class AddExpenses extends Component {
                         <div className="content-form-addExpenses">
                             <div className="row">
                                 <div className="col">
-                                    <form id="create-note-form" onSubmit={this.onSubmit}>
+                                    <div className={"alert alert-success "+ this.state.expenseCreated} id="success-alert">
+                                        <button type="button" className="close" data-dismiss="alert">x</button>
+                                        <strong>Success! </strong> Expense Created
+                                    </div>
+                                    <div className={"alert alert-danger "+ this.state.expenseError} id="error-alert">
+                                        <button type="button" className="close" data-dismiss="alert">x</button>
+                                        <strong>Something was wrong </strong>
+                                    </div>
+                                    <form id="create-expense-form" onSubmit={this.onSubmit}>
                                         <div className="form-group">
                                             <Datepicker
                                                 className="form-control"
+                                                dateFormat='dd-MM-yyyy'
                                                 selected={this.state.expenseDate}
                                                 onChange={this.handleDate}
                                             >
@@ -61,6 +110,7 @@ export default class AddExpenses extends Component {
                                                 className="form-control"
                                                 placeholder="Item"
                                                 name="expenseItem"
+                                                onChange={this.onInputChange}
                                                 required />
                                         </div>
                                         {/** Expense Category */}
@@ -68,6 +118,7 @@ export default class AddExpenses extends Component {
                                             <select
                                                 className="form-control"
                                                 name="categorySelected"
+                                                onChange={this.onInputChange}
                                                 value={this.state.categorySelected}>
                                                 {
                                                     this.state.categories.map(category =>
@@ -88,6 +139,7 @@ export default class AddExpenses extends Component {
                                                 className="form-control"
                                                 placeholder="Cost"
                                                 name="expenseCost"
+                                                onChange={this.onInputChange}
                                                 required
                                             />
                                         </div>

@@ -69,6 +69,7 @@ export default class Home extends Component {
                 })
                 break;
             case "ManageExpenses":
+                this.updateExpensesTable();
                 this.setState({
                     hideDash: 'hideComp',
                     hideAddExpenses: 'hideComp',
@@ -79,10 +80,12 @@ export default class Home extends Component {
             default:
                 break;
         }
-
-        
-
     }
+
+    updateExpensesTable = () => {
+        this.manageExpenses.getExpenses();
+    }
+
 
 
 
@@ -103,7 +106,7 @@ export default class Home extends Component {
                         <Breadcrumb hideBread={this.state.hideBread}/>
                         <Dashboard hideDash={this.state.hideDash}/>
                         <AddExpenses hideAddExpenses={this.state.hideAddExpenses} userID={this.state.userID}/>
-                        <ManageExpenses hideManageExpenses={this.state.hideManageExpenses}/>
+                        <ManageExpenses hideManageExpenses={this.state.hideManageExpenses} ref={updateTable => {this.manageExpenses = updateTable}}/>
 
                         <Spinner hidespinner={this.state.hidespinner}/>
                     </div>
