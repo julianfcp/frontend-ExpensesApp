@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Datepicker from 'react-datepicker';
 import 'react-datepicker/dist/react-datepicker.css';
+import CurrencyFormat from 'react-currency-format';
 import axios from 'axios';
 
 export default class AddExpenses extends Component {
@@ -47,7 +48,7 @@ export default class AddExpenses extends Component {
 
     onDateChange = (date) => {
         this.setState({
-            expenseDate: date
+            expenseDate: date,
         })
     }
 
@@ -56,7 +57,7 @@ export default class AddExpenses extends Component {
         const newExpense = {
             userID: this.state.userID,
             expenseItem: this.state.expenseItem,
-            expenseCost: this.state.expenseCost,
+            expenseCost: this.state.expenseCost.replace(/[$,]/g,''),
             date: this.state.expenseDate,
             expenseCategory: this.state.categorySelected
         }
@@ -65,7 +66,8 @@ export default class AddExpenses extends Component {
             document.getElementById("create-expense-form").reset();
             this.setState({ 
                 expenseDate: new Date(),
-                expenseCreated: ''
+                expenseCreated: '',
+                expenseCost: ''
             });
         } else {
             this.setState({ 
@@ -134,13 +136,15 @@ export default class AddExpenses extends Component {
                                         </div>
                                         {/** Expense Cost */}
                                         <div className="form-group">
-                                            <input 
-                                                type="text"
+                                            <CurrencyFormat 
+                                                thousandSeparator={true} 
+                                                prefix={'$'}
                                                 className="form-control"
                                                 placeholder="Cost"
                                                 name="expenseCost"
+                                                value={this.state.expenseCost}
                                                 onChange={this.onInputChange}
-                                                required
+                                                required 
                                             />
                                         </div>
                                         <button type="submit" className="btn btn-primary">
