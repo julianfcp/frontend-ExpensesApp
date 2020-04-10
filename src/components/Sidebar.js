@@ -6,7 +6,9 @@ export default class Sidebar extends Component {
         this.state = {
             activeDash: 'activeMenu',
             activeAddExpenses: '',
-            activeManageExpenses: ''
+            activeManageExpenses: '',
+            activeAddIncomes: '',
+            activeManageIncomes: ''
         }
     }
 
@@ -15,31 +17,56 @@ export default class Sidebar extends Component {
         const selection = e.target.id;
         
         switch (selection) {
-            case "Addexpenses":
-                this.props.actionHide(selection);
-                this.setState({
-                    activeDash: '',
-                    activeAddExpenses: 'activeMenu',
-                    activeManageExpenses: ''
-                })
-                break;
             case "dashboard":
                 this.props.actionHide(selection);
                 this.setState({
                     activeDash: 'activeMenu',
                     activeAddExpenses: '',
                     activeManageExpenses: '',
+                    activeAddIncomes: '',
+                    activeManageIncomes: ''
+                })
+                break;
+            case "Addexpenses":
+                this.props.actionHide(selection);
+                this.setState({
+                    activeDash: '',
+                    activeAddExpenses: 'activeMenu',
+                    activeManageExpenses: '',
+                    activeAddIncomes: '',
+                    activeManageIncomes: ''
                 })
                 break;
             case "ManageExpenses":
-            this.props.actionHide(selection);
-            this.setState({
-                activeDash: '',
-                activeAddExpenses: '',
-                activeManageExpenses: 'activeMenu'
-
-            })
+                this.props.actionHide(selection);
+                this.setState({
+                    activeDash: '',
+                    activeAddExpenses: '',
+                    activeManageExpenses: 'activeMenu',
+                    activeAddIncomes: '',
+                    activeManageIncomes: ''
+                })
             break;
+            case "AddIncomes":
+                this.props.actionHide(selection);
+                this.setState({
+                    activeDash: '',
+                    activeAddExpenses: '',
+                    activeManageExpenses: '',
+                    activeAddIncomes: 'activeMenu',
+                    activeManageIncomes: ''
+                })
+                break;
+            case "ManageIncomes":
+                    this.props.actionHide(selection);
+                    this.setState({
+                        activeDash: '',
+                        activeAddExpenses: '',
+                        activeManageExpenses: '',
+                        activeAddIncomes: '',
+                        activeManageIncomes: 'activeMenu'
+                    })
+                break;
         
             default:
                 break;
@@ -68,8 +95,8 @@ export default class Sidebar extends Component {
                         <li>
                             <div className="Menu-item"><a id="collapseMenu" href="#homeSubmenu2" data-toggle="collapse" aria-expanded="false">Incomes</a></div>
                             <ul className="collapse list-unstyled" id="homeSubmenu2">
-                                <li><div className="subMenu" >Add Income</div></li>
-                                <li><div className="subMenu" >Manage Income</div></li>
+                                <li><div className={"subMenu "+ this.state.activeAddIncomes} id="AddIncomes" onClick={this.menuItem} >Add Income</div></li>
+                                <li><div className={"subMenu "+ this.state.activeManageIncomes} id="ManageIncomes" onClick={this.menuItem} >Manage Income</div></li>
                             </ul>
                         </li>
                         <li><div className="Menu-item">Import</div></li>

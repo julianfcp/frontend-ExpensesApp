@@ -9,7 +9,9 @@ export default class Dashboard extends Component {
             userID: '',
             totalToday: '',
             totalMonth: '',
-            totalYear: ''
+            totalYear: '',
+            incometotalMonth: '',
+            incometotalYear: ''
         }
     }
 
@@ -21,6 +23,8 @@ export default class Dashboard extends Component {
         this.getExpensesToday();
         this.getExpensesThisMonth();
         this.getExpensesThisYear();
+        this.getIncomesMonth();
+        this.getIncomesYear();
     }
 
     getExpensesThisYear = async () => {
@@ -45,7 +49,7 @@ export default class Dashboard extends Component {
             })
             
         } else {
-            console.log("Error getting Total expenses Month");
+            console.log("Error getting Total expenses this Month");
         }
     }
 
@@ -62,6 +66,31 @@ export default class Dashboard extends Component {
         }
     }
 
+    getIncomesMonth = async () => {
+        const userID = {userID: this.state.userID}
+        const res = await axios.post('http://localhost:4000/api/dashboard/incomeTotalMonth', userID);
+        if(res.data.success){
+            this.setState({
+                incometotalMonth: res.data.totalMonth
+            })
+            
+        } else {
+            console.log("Error getting Total expenses this Month");
+        }
+    }
+
+    getIncomesYear = async () => {
+        const userID = {userID: this.state.userID}
+        const res = await axios.post('http://localhost:4000/api/dashboard/incomeTotalYear', userID);
+        if(res.data.success){
+            this.setState({
+                incometotalYear: res.data.totalYear
+            })
+            
+        } else {
+            console.log("Error getting Total expenses this Year");
+        }
+    }
 
     render() {
         return (
@@ -73,8 +102,10 @@ export default class Dashboard extends Component {
                                 <div className="card-body">
                                     <div className="row no-gutters align-items-center">
                                         <div className="col mr-2">
-                                            <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Earnings (Monthly)</div>
-                                            <div className="h5 mb-0 font-weight-bold text-gray-800">$40,000</div>
+                                            <div className="text-xs font-weight-bold text-primary text-uppercase mb-1">Income (Monthly)</div>
+                                            <div className="h5 mb-0 font-weight-bold text-gray-800">
+                                                <CurrencyFormat value={this.state.incometotalMonth} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                            </div>
                                         </div>
                                         <div className="col-auto">
                                             <i className="fas fa-calendar fa-2x text-gray-300"></i>
@@ -89,7 +120,9 @@ export default class Dashboard extends Component {
                                     <div className="row no-gutters align-items-center">
                                         <div className="col mr-2">
                                             <div className="text-xs font-weight-bold text-success text-uppercase mb-1">Earnings (Anual)</div>
-                                            <div className="h5 mb-0 font-weight-bold text-gray-800">$140,000</div>
+                                            <div className="h5 mb-0 font-weight-bold text-gray-800">
+                                                <CurrencyFormat value={this.state.incometotalYear} displayType={'text'} thousandSeparator={true} prefix={'$'} />
+                                            </div>
                                         </div>
                                         <div className="col-auto">
                                             <i className="fas fa-calendar fa-2x text-gray-300"></i>

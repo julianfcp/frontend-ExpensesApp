@@ -7,6 +7,8 @@ import Breadcrumb from './Breadcrumb';
 import Dashboard from './Dashboard';
 import AddExpenses from './Expenses/AddExpenses';
 import ManageExpenses from './Expenses/ManageExpenses';
+import AddIncomes from './Incomes/AddIncomes';
+import ManageIncomes from './Incomes/ManageIncomes';
 
 export default class Home extends Component {
     constructor(props){
@@ -22,6 +24,8 @@ export default class Home extends Component {
             hideDash: 'hideComp',
             hideAddExpenses: 'hideComp',
             hideManageExpenses: 'hideComp',
+            hideAddIncomes: 'hideComp',
+            hideManageIncomes: 'hideComp'
         }
     }
 
@@ -54,18 +58,22 @@ export default class Home extends Component {
 
     handleHideComponent = (componentID) => {
         switch (componentID) {
-            case "Addexpenses":
-                this.setState({
-                    hideDash: 'hideComp',
-                    hideAddExpenses: '',
-                    hideManageExpenses: 'hideComp',
-                })
-                break;
             case "dashboard":
                 this.setState({
                     hideDash: '',
                     hideAddExpenses: 'hideComp',
                     hideManageExpenses: 'hideComp',
+                    hideAddIncomes: 'hideComp',
+                    hideManageIncomes: 'hideComp'
+                })
+                break;
+            case "Addexpenses":
+                this.setState({
+                    hideDash: 'hideComp',
+                    hideAddExpenses: '',
+                    hideManageExpenses: 'hideComp',
+                    hideAddIncomes: 'hideComp',
+                    hideManageIncomes: 'hideComp'
                 })
                 break;
             case "ManageExpenses":
@@ -74,9 +82,29 @@ export default class Home extends Component {
                     hideDash: 'hideComp',
                     hideAddExpenses: 'hideComp',
                     hideManageExpenses: '',
+                    hideAddIncomes: 'hideComp',
+                    hideManageIncomes: 'hideComp'
                 })
                 break;
-        
+            case "AddIncomes":
+                this.setState({
+                    hideDash: 'hideComp',
+                    hideAddExpenses: 'hideComp',
+                    hideManageExpenses: 'hideComp',
+                    hideAddIncomes: '',
+                    hideManageIncomes: 'hideComp'
+                })
+                break;
+            case "ManageIncomes":
+                this.updateIncomesTable();
+                this.setState({
+                    hideDash: 'hideComp',
+                    hideAddExpenses: 'hideComp',
+                    hideManageExpenses: 'hideComp',
+                    hideAddIncomes: 'hideComp',
+                    hideManageIncomes: ''
+                })
+                break;
             default:
                 break;
         }
@@ -86,7 +114,9 @@ export default class Home extends Component {
         this.manageExpenses.getExpenses();
     }
 
-
+    updateIncomesTable = () => {
+        this.manageIncomes.getIncomes();
+    }
 
 
 
@@ -107,7 +137,9 @@ export default class Home extends Component {
                         <Dashboard hideDash={this.state.hideDash}/>
                         <AddExpenses hideAddExpenses={this.state.hideAddExpenses} userID={this.state.userID}/>
                         <ManageExpenses hideManageExpenses={this.state.hideManageExpenses} ref={updateTable => {this.manageExpenses = updateTable}}/>
-
+                        <AddIncomes hideAddIncomes={this.state.hideAddIncomes} userID={this.state.userID}/>
+                        <ManageIncomes hideManageIncomes={this.state.hideManageIncomes} ref={updateTable => {this.manageIncomes = updateTable}}/>
+                        
                         <Spinner hidespinner={this.state.hidespinner}/>
                     </div>
                 </div>
