@@ -7,11 +7,11 @@ export default class Dashboard extends Component {
         super(props);
         this.state = {
             userID: '',
-            totalToday: '',
-            totalMonth: '',
-            totalYear: '',
-            incometotalMonth: '',
-            incometotalYear: ''
+            totalToday: '0',
+            totalMonth: '0',
+            totalYear: '0',
+            incometotalMonth: '0',
+            incometotalYear: '0'
         }
     }
 
